@@ -22,8 +22,8 @@ Para pruebas locales, instalamos un nodo con [Minikube](https://kubernetes.io/do
 Clonar este repositorio:
 
 ```bash
-$ git clone http://git.kibernum.com/ytannus/gkeBonitaPgsql.git
-$ cd gkeBonitaPgsql
+$ git clone https://github.com/mhaguile/test.git
+$ cd test
 ```
 
 Crear el cluster en GKE
