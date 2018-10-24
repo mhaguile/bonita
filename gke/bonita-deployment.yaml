@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (767ab4b)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bonita
+  name: bonita
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bonita
+    spec:
+      containers:
+      - command:
+        - bash
+        - -c
+        - |
+          set -e
+          echo 'Waiting for Postgres to be available'
+          export PGPASSWORD="$POSTGRES_ENV_POSTGRES_PASSWORD"
+          maxTries=10
+          while [ "$maxTries" -gt 0 ] && ! psql -h "$DB_HOST" -U 'postgres' -c '\l'; do
+              let maxTries--
+              sleep 1
+          done
+          echo
+          if [ "$maxTries" -le 0 ]; then
+              echo >&2 'error: unable to contact Postgres after 10 tries'
+              exit 1
+          fi
+          exec /opt/files/startup.sh
+        env:
+        - name: DB_HOST
+          value: db
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_VENDOR
+          value: postgres
+        - name: PLATFORM_LOGIN
+          value: admin
+        - name: PLATFORM_PASSWORD
+          value: k1b3rn5m
+        - name: POSTGRES_ENV_POSTGRES_PASSWORD
+          value: h4ckm3plz
+        - name: TENANT_LOGIN
+          value: kibernum
+        - name: TENANT_PASSWORD
+          value: cambiame
+        image: bonita
+        name: bonita
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}
