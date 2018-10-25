@@ -29,7 +29,7 @@ $ cd test
 Crear el cluster en GKE
 
 ```bash
-$ gcloud beta container clusters create bonita
+$ gcloud container clusters create bonita --zone us-central1-a
 ```
 
 Crear un disco permanente para la DB:
