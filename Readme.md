@@ -43,6 +43,7 @@ Ingresar al subdirectorio `gke`
 Desplegar DB:
 
 ```bash
+$ cd gke
 $ kubectl create -f db-deployment.yaml
 ```
 
