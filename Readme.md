@@ -44,6 +44,7 @@ Desplegar DB:
 
 ```bash
 $ cd gke
+$ docker pull postgres:9.3
 $ kubectl create -f db-deployment.yaml
 ```
 
@@ -54,6 +55,7 @@ $ kubectl create -f db-service.yaml
 
 Desplegar instancia de Bonita:
 ```bash
+$ docker pull bonita
 $ kubectl create -f bonita-deployment.yaml
 ```
 
